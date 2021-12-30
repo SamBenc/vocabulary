@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+<!--title-->
+{% block title %} {{title | safe}} {% endblock %}
+
+<!--Start, Previous & Next-->
+{% block footer %}
+  {% if footer %}
+      <div class="pagefooter">
+          <div>
+            <a class="previous" href="#" onclick="window.history.back();"> << Previous </a>
+            <a class="next" href={{footer}}>Next >> </a>
+          </div>
+      </div>
+      {% elif start %}
+        <div class="pagefooter">
+          <div>
+            <a class="next" href={{start}}>Start > </a>
+          </div>
+      </div>
+  {% endif %}
+{% endblock %}
+
+  <!--message : notification-->
+{% block notifications %}
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+        <strong>{{ message | safe }}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+{% endblock %}
+
+<!--content-->
+{% block content %}
+
+  <!--Typical Page-->
+  {% if extension == "typical" %}
+    <!--content1-->
+    {% if content1 %}
+      {{content1 | safe}}
+      <br>
+    {% endif %}
+    <!--content2-->
+    {% if content2 %}
+      {{content2 | safe}}
+      <br>
+    {% endif %}
+    <!--content3-->
+    {% if content3 %}
+      {{ content3 | safe }}
+      <br>
+    {% endif %}
+  {% endif %}
+
+{% endblock %}
