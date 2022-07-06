@@ -13,7 +13,7 @@ def get_def(word):
 def show_words(sheet_name, topic):
     filename = f'app/static/csv/{sheet_name}.csv'
     df = pd.read_csv(filename)
-    
+    df = df.fillna("")
     html = list_to_html(df[topic])
     return html
 
@@ -27,11 +27,11 @@ def list_to_html(mylist):
     for item in mylist:
         item = str(item).capitalize()
         search_item = str(item).replace(" ","%20").replace("/","%20")
-        try:
-            word_def = get_def(search_item)
-        except Exception as e:
-            word_def = e
-            continue
+        #try:
+            #word_def = get_def(search_item)
+        #except Exception as e:
+            #word_def = e
+            #continue
         translate = f'https://translate.google.com/?hl=en&sl=en&tl=en&op=translate&text={search_item}'
         image = f'https://www.google.com/search?q={search_item}&tbm=isch'
         linguee = f'https://www.linguee.fr/francais-anglais/search?source=anglais&query={search_item}'
@@ -60,7 +60,7 @@ def list_to_html(mylist):
                                             <a href={youtube} target="_blank"><i class="fa fa-youtube"></i></a>&nbsp; &nbsp;
                                             <a href={definition} target="_blank"><i class="fa fa-comment"></i></a>&nbsp; &nbsp;
                                         </p>
-                                        {word_def}
+                                        
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
