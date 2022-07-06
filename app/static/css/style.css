@@ -4,7 +4,7 @@
  * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
-:root {
+ :root {
   --blue: #007bff;
   --indigo: #6610f2;
   --purple: #6f42c1;
@@ -8138,13 +8138,13 @@ body {
   line-height: 1.8;
   font-weight: normal;
   background: #fafafa;
-  color: black; }
+  color: blue; }
 
 a {
   -webkit-transition: .3s all ease;
   -o-transition: .3s all ease;
   transition: .3s all ease;
-  color: black; }
+  color: #2f89fc; }
   a:hover, a:focus {
     text-decoration: none !important;
     outline: none !important;
@@ -8243,10 +8243,10 @@ h1, h2, h3, h4, h5,
       color: rgba(255, 255, 255, 0.8);
       border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
       #sidebar ul li a:hover {
-        color: #f8b739; }
+        color: #2f89fc; }
     #sidebar ul li.active > a {
       background: transparent;
-      color: #f8b739; }
+      color: #2f89fc; }
   @media (max-width: 991.98px) {
     #sidebar {
       margin-left: -300px; }
@@ -8312,21 +8312,18 @@ a[data-toggle="collapse"] {
 .marging{
   margin-right: 50px;
 }
+.colWidth{
+  padding-left: 30px;
+}
 .word{
-  color: darkgreen;
+  color: black;
   font-size: 24px;
 }
 .topic{
-  color: darkgreen;
+  color: #2f89fc;
   font-size: 24px;
-  font-weight: bold;
+  font-weight: light;
 }
 .words_list{
   list-style-type:none;
-}
-.hide{
-  visibility: hidden;
-}
-.show{
-  visibility:visible;
 }
