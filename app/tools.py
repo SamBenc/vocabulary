@@ -1,6 +1,14 @@
 from numpy import NaN, nan
 import pandas as pd
-from deep_translator import GoogleTranslator
+from bs4 import BeautifulSoup
+import requests
+
+def get_def(word):
+    url = "https://www.merriam-webster.com/dictionary/"+str(word)
+    doc = requests.get(url)
+    html = BeautifulSoup(doc.text, "html.parser")
+    result = html.find("div", {"id":"dictionary-entry-1"})
+    return result
 
 def show_words(sheet_name, topic):
     filename = f'app/static/csv/{sheet_name}.csv'
@@ -16,6 +24,11 @@ def show_topic(sheet_name):
 def list_to_html(mylist):
     html = "<ul class='words_list'>"
     for item in mylist:
+        try:
+            word_def = get_def(str(item.replace(" ","%20").replace("/","%20")))
+        except Exception as e:
+            word_def = e
+            continue
         translate = f'https://translate.google.com/?hl=en&sl=en&tl=en&op=translate&text={item}'
         image = f'https://www.google.com/search?q={item}&tbm=isch'
         linguee = f'https://www.linguee.fr/francais-anglais/search?source=anglais&query={item}'
@@ -28,7 +41,7 @@ def list_to_html(mylist):
 
             <!-- Modal -->
             <div class="modal fade" id="{item.capitalize().replace(' ','').replace('/','')}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
+                <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">{item.capitalize()}</h5>
@@ -37,13 +50,14 @@ def list_to_html(mylist):
                             </button>
                         </div>
                         <div class="modal-body">
-                                        <p class="word">
+                                        <p class="word d-flex justify-content-center">
                                             <a href={translate} target="_blank"><i class="fa fa-language"></i></a>&nbsp; &nbsp;
                                             <a href={image} target="_blank"><i class="fa fa-image"></i></a>&nbsp; &nbsp;
                                             <a href={linguee} target="_blank"><i class="fa fa-quote-right"></i></a>&nbsp; &nbsp;
                                             <a href={youtube} target="_blank"><i class="fa fa-youtube"></i></a>&nbsp; &nbsp;
                                             <a href={definition} target="_blank"><i class="fa fa-comment"></i></a>&nbsp; &nbsp;
                                         </p>
+                                        {word_def}
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
