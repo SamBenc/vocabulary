@@ -13,6 +13,7 @@ def get_def(word):
 def show_words(sheet_name, topic):
     filename = f'app/static/csv/{sheet_name}.csv'
     df = pd.read_csv(filename)
+    
     html = list_to_html(df[topic])
     return html
 
@@ -24,27 +25,29 @@ def show_topic(sheet_name):
 def list_to_html(mylist):
     html = "<ul class='words_list'>"
     for item in mylist:
+        item = str(item).capitalize()
+        search_item = str(item).replace(" ","%20").replace("/","%20")
         try:
-            word_def = get_def(str(item.replace(" ","%20").replace("/","%20")))
+            word_def = get_def(search_item)
         except Exception as e:
             word_def = e
             continue
-        translate = f'https://translate.google.com/?hl=en&sl=en&tl=en&op=translate&text={item}'
-        image = f'https://www.google.com/search?q={item}&tbm=isch'
-        linguee = f'https://www.linguee.fr/francais-anglais/search?source=anglais&query={item}'
-        youtube = f'https://www.youtube.com/results?search_query={item}'
-        definition = f'https://www.dictionary.com/browse/{item}'
+        translate = f'https://translate.google.com/?hl=en&sl=en&tl=en&op=translate&text={search_item}'
+        image = f'https://www.google.com/search?q={search_item}&tbm=isch'
+        linguee = f'https://www.linguee.fr/francais-anglais/search?source=anglais&query={search_item}'
+        youtube = f'https://www.youtube.com/results?search_query={search_item}'
+        definition = f'https://www.dictionary.com/browse/{search_item}'
         if item not in [nan, NaN, 'nan', 'NaN']:
             html += f"""
             <!-- Button trigger modal -->
-            <li type="button" class="word" data-toggle="modal" data-target="#{item.capitalize().replace(' ','').replace('/','')}">{item.capitalize()}</li>
+            <li type="button" class="word" data-toggle="modal" data-target="#{search_item}">{item}</li>
 
             <!-- Modal -->
-            <div class="modal fade" id="{item.capitalize().replace(' ','').replace('/','')}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="{search_item}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">{item.capitalize()}</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">{item}</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                             </button>
@@ -72,7 +75,7 @@ def list_to_html(mylist):
 def list_to_href(link,mylist):
     html = "<ul class='words_list'>"
     for item in mylist:
-        html += f"<li><a class='topic' href='/{link}/{item}'><i class='fa fa-arrow-circle-right'></i>&nbsp; &nbsp;{item.capitalize()}</a></li>"
+        html += f"<li><a class='topic' href='/{link}/{item}'><i class='fa fa-arrow-circle-right'></i>&nbsp; &nbsp;{str(item).capitalize()}</a></li>"
     return html + "</ul>"
 
 def next_topic(sheet_name, topic):
