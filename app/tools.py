@@ -12,9 +12,10 @@ def get_def(word):
 
 def show_words(sheet_name, topic):
     filename = f'app/static/csv/{sheet_name}.csv'
-    df = pd.read_csv(filename)
-    df = df.fillna("")
-    html = list_to_html(df[topic])
+    df_raw = pd.read_csv(filename)
+    df = df_raw[topic].fillna("")
+    df = df.drop_duplicates()
+    html = list_to_html(df)
     return html
 
 def show_topic(sheet_name):
