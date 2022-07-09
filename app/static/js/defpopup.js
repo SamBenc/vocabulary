@@ -3,7 +3,7 @@ function defpopup(element) {
 	var search_word = word.replace(" ","%20").replace("'","%20");
 	var search = search_word.split("/")[0]
 	var url = "https://www.merriam-webster.com/dictionary/"+search;
-	var translate = 'https://translate.google.com/?hl=en&sl=en&tl=en&op=translate&text='+search;
+	var translate = 'https://translate.google.com/?hl=en&sl=en&tl=fr&text='+search+'&op=translate';
 	var image = 'https://www.google.com/search?q='+search+'&tbm=isch';
 	var linguee = 'https://www.linguee.fr/francais-anglais/search?source=anglais&query='+search;
 	var youtube = 'https://www.youtube.com/results?search_query='+search;
