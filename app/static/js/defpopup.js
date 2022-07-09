@@ -1,13 +1,13 @@
 function defpopup(element) {
 	var word = element.innerHTML;
-	var search = word.replace(" ","%20").replace("'","%20");
-	search = search.split("/")[0]
+	var search_word = word.replace(" ","%20").replace("'","%20");
+	var search = search_word.split("/")[0]
 	var url = "https://www.merriam-webster.com/dictionary/"+search;
-	var translate = 'https://translate.google.com/?hl=en&sl=en&tl=en&op=translate&text='+word;
-	var image = 'https://www.google.com/search?q='+word+'&tbm=isch';
-	var linguee = 'https://www.linguee.fr/francais-anglais/search?source=anglais&query='+word;
-	var youtube = 'https://www.youtube.com/results?search_query='+word;
-	var definition = 'https://www.dictionary.com/browse/'+word
+	var translate = 'https://translate.google.com/?hl=en&sl=en&tl=en&op=translate&text='+search;
+	var image = 'https://www.google.com/search?q='+search+'&tbm=isch';
+	var linguee = 'https://www.linguee.fr/francais-anglais/search?source=anglais&query='+search;
+	var youtube = 'https://www.youtube.com/results?search_query='+search;
+	var definition = 'https://www.dictionary.com/browse/'+search;
 	document.getElementById("ModalLabel").innerHTML = `<div><p class="word d-flex justify-content-center">${word} &nbsp; | &nbsp; &nbsp;
 														<a href=${translate} target="_blank"><i class="fa fa-language"></i></a>&nbsp; &nbsp;
 														<a href=${image} target="_blank"><i class="fa fa-image"></i></a>&nbsp; &nbsp;
@@ -24,7 +24,6 @@ function defpopup(element) {
 		var word_definition = "";
 		for (let i = 0; i < 11; i++) {
 			try{
-				console.log("dictionary-entry-" + String(i))
 				var hword = doc.getElementsByClassName("hword")[i].outerHTML;
 				var fl = doc.getElementsByClassName("fl")[i].outerHTML;
 				var entry = doc.getElementById("dictionary-entry-" + String(i+1)).outerHTML;
