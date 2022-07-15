@@ -4,11 +4,13 @@ from bs4 import BeautifulSoup
 import requests
 
 def get_def(word):
-    url = "https://www.merriam-webster.com/dictionary/"+str(word)
+    url = "https://www.wordhippo.com/what-is/the-meaning-of-the-word/"+str(word)+".html"
     doc = requests.get(url)
     html = BeautifulSoup(doc.text, "html.parser")
-    result = html.find("div", {"id":"dictionary-entry-1"})
-    return result
+    result = html.find_all("div", {"class":"defv2relatedwords"})
+    return result[0]
+
+print(get_def("blunt"))
 
 def list_to_html(mylist):
     html = "<ul class='words_list'>"
