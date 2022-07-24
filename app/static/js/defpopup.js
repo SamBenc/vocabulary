@@ -2,7 +2,7 @@ function defpopup(element) {
 	var word = element.innerHTML;
 	var search_word = word.replace(" ","%20").replace("'","%20");
 	var search = search_word.split("/")[0];
-	var url = "https://www.merriam-webster.com/dictionary/"+search;
+	var url = "https://www.wordhippo.com/what-is/the-noun-for/"+search+'.html';
 	var nounOf = 'https://www.wordhippo.com/what-is/the-noun-for/'+search+'.html';
 	var antonym = "https://www.wordhippo.com/what-is/the-opposite-of/"+search+".html";
 	var translate = 'https://translate.google.com/?hl=en&sl=en&tl=fr&text='+search+'&op=translate';
@@ -20,23 +20,13 @@ function defpopup(element) {
 														<a href=${youtube} target="_blank"><i class="fa fa-youtube"></i></a>&nbsp; &nbsp;
 													</p></div>
 													<div><p id="word-definition" class="word"></p></div>`;
-	fetch(url)
+	fetch("/get/"+word)
 		.then((result) => { return result.text(); })
 		.then((content) => {
 		const parser = new DOMParser();
 		const doc = parser.parseFromString(content, "text/html");
 		var word_definition = "<h3>"+word+"</h3>";
-		for (let i = 0; i < 11; i++) {
-			try{
-				var wordType = doc.getElementsByClassName("important-blue-link")[i].outerHTML;
-				var relatedWords = doc.getElementById("dictionary-entry-"+(i+1)).outerHTML;
-				word_definition += wordType;
-				word_definition += relatedWords;
-				word_definition += "<br>";
-			}catch{
-				break;
-			}
-		}
+		word_definition += content;
 		document.getElementById("ModalBody").innerHTML = word_definition;
 	});
 }

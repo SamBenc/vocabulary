@@ -8327,3 +8327,15 @@ a[data-toggle="collapse"] {
 .words_list{
   list-style-type:none;
 }
+.themeTitle{
+  text-align: right; 
+  width: 80%;
+}
+.defv2wordtype{
+  color: black;
+  font-size: 18px;
+}
+.defv2relatedwords{
+  color: black;
+  font-size: 16px;
+}
