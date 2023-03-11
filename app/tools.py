@@ -4,7 +4,7 @@ import os
 
 def show_words(sheet_name, topic):
     base_dir = os.getcwd()
-    filename = f'app/static/csv/{sheet_name}.csv'
+    filename = f'vocabulary/app/static/csv/{sheet_name}.csv'
     file_path = os.path.join(base_dir,filename)
     df = pd.read_csv(file_path)
     html = list_to_html(df[topic])
@@ -12,7 +12,7 @@ def show_words(sheet_name, topic):
 
 def show_topic(sheet_name):
     base_dir = os.getcwd()
-    filename = f'app/static/csv/{sheet_name}.csv'
+    filename = f'vocabulary/app/static/csv/{sheet_name}.csv'
     file_path = os.path.join(base_dir,filename)
     df = pd.read_csv(file_path)
     return list_to_href(sheet_name,df.columns)
@@ -44,7 +44,7 @@ def list_to_href(link,mylist):
 
 def next_topic(sheet_name, topic):
     base_dir = os.getcwd()
-    filename = f'app/static/csv/{sheet_name}.csv'
+    filename = f'vocabulary/app/static/csv/{sheet_name}.csv'
     file_path = os.path.join(base_dir,filename)
     df = pd.read_csv(file_path)
     current_index = df.columns.get_loc(topic)
