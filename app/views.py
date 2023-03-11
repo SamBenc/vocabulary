@@ -1,6 +1,6 @@
 from app import app
 from app import tools
-from flask import render_template
+from flask import render_template, abort
 
 @app.route("/")
 def home():
@@ -10,10 +10,14 @@ def home():
 
     return render_template("index.html", title = "Vocabulary", flowers = flowers, birds=birds, gemstones=gemstones)
 
+@app.route('/favicon.ico')
+def favicon():
+    abort(404)
+
 @app.route("/<csv>", defaults={'topic' : 'vocabulary'})
 @app.route("/<csv>/<topic>", methods=["GET", "POST"])
 def theme(csv, topic):
-    if topic != "vocabulary" or topic != "favicon.ico" :
+    if topic != "vocabulary" :
         return render_template("index.html", title = f"{csv.capitalize()} > {topic.capitalize()}", content1 = tools.show_words(csv,topic), footer = f'/{csv}/{tools.next_topic(csv,topic)}')
     else:
         return render_template("index.html", title = csv.capitalize(), content1 = tools.show_topic(csv))
