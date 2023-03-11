@@ -1,15 +1,20 @@
 from numpy import NaN, nan
 import pandas as pd
+import os
 
 def show_words(sheet_name, topic):
+    base_dir = os.getcwd()
     filename = f'app/static/csv/{sheet_name}.csv'
-    df = pd.read_csv(filename)
+    file_path = os.path.join(base_dir,filename)
+    df = pd.read_csv(file_path)
     html = list_to_html(df[topic])
     return html
 
 def show_topic(sheet_name):
+    base_dir = os.getcwd()
     filename = f'app/static/csv/{sheet_name}.csv'
-    df = pd.read_csv(filename)
+    file_path = os.path.join(base_dir,filename)
+    df = pd.read_csv(file_path)
     return list_to_href(sheet_name,df.columns)
 
 def list_to_html(mylist):
@@ -38,8 +43,10 @@ def list_to_href(link,mylist):
     return html + "</ul>"
 
 def next_topic(sheet_name, topic):
+    base_dir = os.getcwd()
     filename = f'app/static/csv/{sheet_name}.csv'
-    df = pd.read_csv(filename)
+    file_path = os.path.join(base_dir,filename)
+    df = pd.read_csv(file_path)
     current_index = df.columns.get_loc(topic)
     if current_index == len(df.columns)-1:
         next = df.columns[0]
